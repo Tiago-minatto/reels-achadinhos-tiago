@@ -1,0 +1,139 @@
+name: Gerar Reel Top 3
+
+run-name: Reel ${{ inputs.job_id }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      job_id:
+        description: "Código único do Reel"
+        required: true
+        type: string
+
+      produto1:
+        description: "Nome do produto 1"
+        required: true
+        type: string
+      preco1:
+        description: "Preço do produto 1"
+        required: true
+        type: string
+      loja1:
+        description: "Loja do produto 1"
+        required: true
+        type: string
+      imagem1:
+        description: "URL da imagem do produto 1"
+        required: true
+        type: string
+
+      produto2:
+        description: "Nome do produto 2"
+        required: true
+        type: string
+      preco2:
+        description: "Preço do produto 2"
+        required: true
+        type: string
+      loja2:
+        description: "Loja do produto 2"
+        required: true
+        type: string
+      imagem2:
+        description: "URL da imagem do produto 2"
+        required: true
+        type: string
+
+      produto3:
+        description: "Nome do produto 3"
+        required: true
+        type: string
+      preco3:
+        description: "Preço do produto 3"
+        required: true
+        type: string
+      loja3:
+        description: "Loja do produto 3"
+        required: true
+        type: string
+      imagem3:
+        description: "URL da imagem do produto 3"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  gerar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar arquivos do repositório
+        uses: actions/checkout@v4
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar FFmpeg, fontes e bibliotecas
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-dejavu-core
+          python -m pip install --upgrade pip
+          pip install pillow requests
+
+      - name: Gerar vídeo vertical
+        env:
+          JOB_ID: ${{ inputs.job_id }}
+
+          PRODUTO_1: ${{ inputs.produto1 }}
+          PRECO_1: ${{ inputs.preco1 }}
+          LOJA_1: ${{ inputs.loja1 }}
+          IMAGEM_1: ${{ inputs.imagem1 }}
+
+          PRODUTO_2: ${{ inputs.produto2 }}
+          PRECO_2: ${{ inputs.preco2 }}
+          LOJA_2: ${{ inputs.loja2 }}
+          IMAGEM_2: ${{ inputs.imagem2 }}
+
+          PRODUTO_3: ${{ inputs.produto3 }}
+          PRECO_3: ${{ inputs.preco3 }}
+          LOJA_3: ${{ inputs.loja3 }}
+          IMAGEM_3: ${{ inputs.imagem3 }}
+        run: |
+          python scripts/gerar_reel.py
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Preparar arquivos públicos
+        run: |
+          mkdir -p public/reels
+          test -f "public/reels/${{ inputs.job_id }}.mp4"
+          printf '%s' "${{ inputs.job_id }}" > public/ultimo-job.txt
+
+      - name: Enviar conteúdo para o GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  publicar:
+    environment:
+      name: github-pages
+      url: ${{ steps.publicacao.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    needs: gerar
+
+    steps:
+      - name: Publicar vídeo
+        id: publicacao
+        uses: actions/deploy-pages@v4
