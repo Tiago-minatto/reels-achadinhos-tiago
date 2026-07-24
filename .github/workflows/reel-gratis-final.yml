@@ -73,12 +73,924 @@ jobs:
           python -m pip install --upgrade pip
           pip install pillow requests
 
+      - name: Preparar logo do Achadinhos
+        run: |
+          mkdir -p assets
+          echo 'iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAMAAAAKE/YAAAABgFBMVEXhWAmbbhunKxnZnpallGHbkg1XJg/fYGOJdl2jlhruJws5BpWmoJNfGdhzZTDkM0He3uBFBZfs3yMbDVPUtdZtY067rtQZIR6VYfBYXfDgxKxL7v2e4frVj3sk3u98gHxUlvW8PEKFO/GZfYG/wb0NanoXosJCP0LSfoAKBwYCAQH63AT7+/v94wYYFQowJgXFAgK3AgLo6OhTRgj5M0ZIOQfX1tbMtw5rWAnryQzIyMgkGwNzZwu3t7aoqKeUhg2pmA6Xl5YnJyeJeAu3pQ/YxQ/3NgY3Nzd4d3ZkBflISEeIiIc6MwZXV1ZnZ2drBAQtBgL+8wtmSgaIaA3XdwNQBQRaUgrEqw5ZAvTwuQy3Fg3pJzhRRi7rtrQPAS7KJyobA1BLB63GFg/r2tPrqKe2Jg7tpwyRKAx8cwuOBQWSiG6oiwzSGSfLxrXnl5WwqJLHJgzyxsTQNQfrmAxDLARxGQlyaE/JR0fXdnUtBHRoWTDJNzbQVlTahobo49nQVgZWPiK6AAAAgHRSTlP//////////////////////////////////////////////////////wD//////////////////////////////////////////////////////////////////////////////////////////////////////////////////7EQXN8AACR6SURBVHja7X2Jf9PIsq6TkI19gFnOuefc9W1HsiTbQrZky7s99ngjy8QmISGQjYRAFshAgDD867equltq2UriLNz37u/3eoZ4k61P1V8tXd3Vivzjv2GL/H/Q2KKD7f9h0H1IE167duyRawecuJ/O5orNTqfdbjewtTvN4u1cOpm4NuCR6wScSGab7VpJV0Karpfa9dvZ9J+J6P910D7gdLMRDjeIvdbJJa8q8Mh1IE6ki+2SDyxjmG45X6hUUth6lUohX7ZNIyM+L7VzySvJO3J1GWfrNQ9uyy4XUo6qhTS1miq4pqEL3PcvL+/IFSGnPcRGN1+pElw1vDHoqbxt0PETzWQi8V8JmiNONhucxa3tQvUMvEHoasUl3KV6+nKwI5eCjMY3ke1wxIZb4XiHAM2AqwVbJ9hjycR/BWjuNnJtTmO7oAoR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' | base64 --decode > assets/logo.png
+          test -s assets/logo.png
+
       - name: Criar gerador interno
         run: |
           mkdir -p scripts
-          echo 'IyEvdXNyL2Jpbi9lbnYgcHl0aG9uMwoiIiIKR2VyYSB1bSBSZWVsIHZlcnRpY2FsIFRvcCAzIHVzYW5kbyBQaWxsb3cgZSBGRm1wZWcuCgpFbnRyYWRhOgotIFZhcmnDoXZlaXMgZGUgYW1iaWVudGUgZGVmaW5pZGFzIHBlbG8gR2l0SHViIEFjdGlvbnMuCgpTYcOtZGE6Ci0gcHVibGljL3JlZWxzLzxKT0JfSUQ+Lm1wNAoiIiIKCmZyb20gX19mdXR1cmVfXyBpbXBvcnQgYW5ub3RhdGlvbnMKCmltcG9ydCBvcwppbXBvcnQgcmUKaW1wb3J0IHN1YnByb2Nlc3MKaW1wb3J0IHRleHR3cmFwCmZyb20gcGF0aGxpYiBpbXBvcnQgUGF0aApmcm9tIHR5cGluZyBpbXBvcnQgSXRlcmFibGUKCmltcG9ydCByZXF1ZXN0cwpmcm9tIFBJTCBpbXBvcnQgSW1hZ2UsIEltYWdlRHJhdywgSW1hZ2VGb250LCBJbWFnZU9wcwoKTEFSR1VSQSA9IDEwODAKQUxUVVJBID0gMTkyMApGUFMgPSAzMAoKQ09SX0ZVTkRPID0gIiNGRkY0RTgiCkNPUl9MQVJBTkpBID0gIiNGNDUxMUUiCkNPUl9WRVJERSA9ICIjMUI1RTIwIgpDT1JfVEVYVE8gPSAiIzIyMjIyMiIKQ09SX0NJTlpBID0gIiM1NTU1NTUiCkNPUl9CUkFOQ08gPSAiI0ZGRkZGRiIKClBBU1RBX1RSQUJBTEhPID0gUGF0aCgicmVlbF90bXAiKQpQQVNUQV9QVUJMSUNBID0gUGF0aCgicHVibGljL3JlZWxzIikKCkZPTlRFX1JFR1VMQVIgPSBQYXRoKAogICAgIi91c3Ivc2hhcmUvZm9udHMvdHJ1ZXR5cGUvZGVqYXZ1L0RlamFWdVNhbnMudHRmIgopCkZPTlRFX05FR1JJVE8gPSBQYXRoKAogICAgIi91c3Ivc2hhcmUvZm9udHMvdHJ1ZXR5cGUvZGVqYXZ1L0RlamFWdVNhbnMtQm9sZC50dGYiCikKCgpkZWYgZW52KG5vbWU6IHN0cikgLT4gc3RyOgogICAgcmV0dXJuIG9zLmVudmlyb24uZ2V0KG5vbWUsICIiKS5zdHJpcCgpCgoKZGVmIGxpbXBhcl9qb2JfaWQodmFsb3I6IHN0cikgLT4gc3RyOgogICAgbGltcG8gPSByZS5zdWIociJbXkEtWmEtejAtOV8tXSIsICItIiwgdmFsb3Iuc3RyaXAoKSkKICAgIGxpbXBvID0gcmUuc3ViKHIiLSsiLCAiLSIsIGxpbXBvKS5zdHJpcCgiLSIpCiAgICBpZiBub3QgbGltcG86CiAgICAgICAgcmFpc2UgVmFsdWVFcnJvcigiSk9CX0lEIHZhemlvIG91IGludsOhbGlkby4iKQogICAgcmV0dXJuIGxpbXBvWzoxMDBdCgoKZGVmIGZvbnRlKHRhbWFuaG86IGludCwgbmVncml0bzogYm9vbCA9IEZhbHNlKSAtPiBJbWFnZUZvbnQuRnJlZVR5cGVGb250OgogICAgY2FtaW5obyA9IEZPTlRFX05FR1JJVE8gaWYgbmVncml0byBlbHNlIEZPTlRFX1JFR1VMQVIKICAgIHJldHVybiBJbWFnZUZvbnQudHJ1ZXR5cGUoc3RyKGNhbWluaG8pLCB0YW1hbmhvKQoKCmRlZiBiYWl4YXJfaW1hZ2VtKHVybDogc3RyLCBkZXN0aW5vOiBQYXRoKSAtPiBQYXRoOgogICAgaWYgbm90IHJlLm1hdGNoKHIiXmh0dHBzPzovLyIsIHVybCwgZmxhZ3M9cmUuSSk6CiAgICAgICAgcmFpc2UgVmFsdWVFcnJvcihmIlVSTCBkZSBpbWFnZW0gaW52w6FsaWRhOiB7dXJsfSIpCgogICAgcmVzcG9zdGEgPSByZXF1ZXN0cy5nZXQoCiAgICAgICAgdXJsLAogICAgICAgIHRpbWVvdXQ9MzUsCiAgICAgICAgYWxsb3dfcmVkaXJlY3RzPVRydWUsCiAgICAgICAgaGVhZGVycz17CiAgICAgICAgICAgICJVc2VyLUFnZW50IjogKAogICAgICAgICAgICAgICAgIk1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpICIKICAgICAgICAgICAgICAgICJBcHBsZVdlYktpdC81MzcuMzYgQ2hyb21lLzE1MC4wLjAuMCBTYWZhcmkvNTM3LjM2IgogICAgICAgICAgICApLAogICAgICAgICAgICAiQWNjZXB0IjogImltYWdlL2F2aWYsaW1hZ2Uvd2VicCxpbWFnZS9hcG5nLGltYWdlLyosKi8qO3E9MC44IiwKICAgICAgICB9LAogICAgKQogICAgcmVzcG9zdGEucmFpc2VfZm9yX3N0YXR1cygpCgogICAgaWYgbGVuKHJlc3Bvc3RhLmNvbnRlbnQpIDwgMTAwMDoKICAgICAgICByYWlzZSBWYWx1ZUVycm9yKCJBIGltYWdlbSByZWNlYmlkYSBlc3TDoSB2YXppYSBvdSBtdWl0byBwZXF1ZW5hLiIpCgogICAgZGVzdGluby53cml0ZV9ieXRlcyhyZXNwb3N0YS5jb250ZW50KQoKICAgIHdpdGggSW1hZ2Uub3BlbihkZXN0aW5vKSBhcyBpbWFnZW06CiAgICAgICAgaW1hZ2VtLmNvbnZlcnQoIlJHQiIpLnNhdmUoZGVzdGluby53aXRoX3N1ZmZpeCgiLmpwZyIpLCBxdWFsaXR5PTk0KQoKICAgIGRlc3Rpbm8udW5saW5rKG1pc3Npbmdfb2s9VHJ1ZSkKICAgIHJldHVybiBkZXN0aW5vLndpdGhfc3VmZml4KCIuanBnIikKCgpkZWYgYXJyZWRvbmRhcihpbWFnZW06IEltYWdlLkltYWdlLCByYWlvOiBpbnQpIC0+IEltYWdlLkltYWdlOgogICAgbWFzY2FyYSA9IEltYWdlLm5ldygiTCIsIGltYWdlbS5zaXplLCAwKQogICAgZGVzZW5obyA9IEltYWdlRHJhdy5EcmF3KG1hc2NhcmEpCiAgICBkZXNlbmhvLnJvdW5kZWRfcmVjdGFuZ2xlKAogICAgICAgICgwLCAwLCBpbWFnZW0ud2lkdGgsIGltYWdlbS5oZWlnaHQpLAogICAgICAgIHJhZGl1cz1yYWlvLAogICAgICAgIGZpbGw9MjU1LAogICAgKQogICAgc2FpZGEgPSBJbWFnZS5uZXcoIlJHQkEiLCBpbWFnZW0uc2l6ZSwgKDAsIDAsIDAsIDApKQogICAgc2FpZGEucGFzdGUoaW1hZ2VtLmNvbnZlcnQoIlJHQkEiKSwgKDAsIDApLCBtYXNjYXJhKQogICAgcmV0dXJuIHNhaWRhCgoKZGVmIGVuY2FpeGFyX2ltYWdlbShjYW1pbmhvOiBQYXRoLCBsYXJndXJhOiBpbnQsIGFsdHVyYTogaW50KSAtPiBJbWFnZS5JbWFnZToKICAgIHdpdGggSW1hZ2Uub3BlbihjYW1pbmhvKSBhcyBvcmlnaW5hbDoKICAgICAgICBpbWFnZW0gPSBvcmlnaW5hbC5jb252ZXJ0KCJSR0IiKQoKICAgIGltYWdlbS50aHVtYm5haWwoKGxhcmd1cmEsIGFsdHVyYSksIEltYWdlLlJlc2FtcGxpbmcuTEFOQ1pPUykKCiAgICBxdWFkcm8gPSBJbWFnZS5uZXcoIlJHQiIsIChsYXJndXJhLCBhbHR1cmEpLCBDT1JfQlJBTkNPKQogICAgeCA9IChsYXJndXJhIC0gaW1hZ2VtLndpZHRoKSAvLyAyCiAgICB5ID0gKGFsdHVyYSAtIGltYWdlbS5oZWlnaHQpIC8vIDIKICAgIHF1YWRyby5wYXN0ZShpbWFnZW0sICh4LCB5KSkKCiAgICByZXR1cm4gYXJyZWRvbmRhcihxdWFkcm8sIDM4KQoKCmRlZiBxdWVicmFyX3RleHRvKAogICAgZGVzZW5obzogSW1hZ2VEcmF3LkltYWdlRHJhdywKICAgIHRleHRvOiBzdHIsCiAgICBmb250ZV90ZXh0bzogSW1hZ2VGb250LkZyZWVUeXBlRm9udCwKICAgIGxhcmd1cmFfbWF4aW1hOiBpbnQsCiAgICBtYXhfbGluaGFzOiBpbnQsCikgLT4gbGlzdFtzdHJdOgogICAgcGFsYXZyYXMgPSB0ZXh0by5zcGxpdCgpCiAgICBsaW5oYXM6IGxpc3Rbc3RyXSA9IFtdCiAgICBhdHVhbCA9ICIiCgogICAgZm9yIHBhbGF2cmEgaW4gcGFsYXZyYXM6CiAgICAgICAgdGVzdGUgPSBwYWxhdnJhIGlmIG5vdCBhdHVhbCBlbHNlIGYie2F0dWFsfSB7cGFsYXZyYX0iCiAgICAgICAgY2FpeGEgPSBkZXNlbmhvLnRleHRiYm94KCgwLCAwKSwgdGVzdGUsIGZvbnQ9Zm9udGVfdGV4dG8pCiAgICAgICAgbGFyZ3VyYSA9IGNhaXhhWzJdIC0gY2FpeGFbMF0KCiAgICAgICAgaWYgbGFyZ3VyYSA8PSBsYXJndXJhX21heGltYToKICAgICAgICAgICAgYXR1YWwgPSB0ZXN0ZQogICAgICAgIGVsc2U6CiAgICAgICAgICAgIGlmIGF0dWFsOgogICAgICAgICAgICAgICAgbGluaGFzLmFwcGVuZChhdHVhbCkKICAgICAgICAgICAgYXR1YWwgPSBwYWxhdnJhCgogICAgICAgIGlmIGxlbihsaW5oYXMpID49IG1heF9saW5oYXM6CiAgICAgICAgICAgIGJyZWFrCgogICAgaWYgYXR1YWwgYW5kIGxlbihsaW5oYXMpIDwgbWF4X2xpbmhhczoKICAgICAgICBsaW5oYXMuYXBwZW5kKGF0dWFsKQoKICAgIHRleHRvX3VzYWRvID0gIiAiLmpvaW4obGluaGFzKQogICAgaWYgbGVuKHRleHRvX3VzYWRvKSA8IGxlbih0ZXh0by5zdHJpcCgpKSBhbmQgbGluaGFzOgogICAgICAgIHVsdGltYSA9IGxpbmhhc1stMV0KICAgICAgICB3aGlsZSB1bHRpbWE6CiAgICAgICAgICAgIHRlc3RlID0gdWx0aW1hLnJzdHJpcCgiLiw7OiE/IikgKyAiLi4uIgogICAgICAgICAgICBjYWl4YSA9IGRlc2VuaG8udGV4dGJib3goKDAsIDApLCB0ZXN0ZSwgZm9udD1mb250ZV90ZXh0bykKICAgICAgICAgICAgaWYgY2FpeGFbMl0gLSBjYWl4YVswXSA8PSBsYXJndXJhX21heGltYToKICAgICAgICAgICAgICAgIGxpbmhhc1stMV0gPSB0ZXN0ZQogICAgICAgICAgICAgICAgYnJlYWsKICAgICAgICAgICAgdWx0aW1hID0gdWx0aW1hWzotMV0ucnN0cmlwKCkKCiAgICByZXR1cm4gbGluaGFzCgoKZGVmIGRlc2VuaGFyX3RleHRvX2NlbnRyYWxpemFkbygKICAgIGRlc2VuaG86IEltYWdlRHJhdy5JbWFnZURyYXcsCiAgICBsaW5oYXM6IEl0ZXJhYmxlW3N0cl0sCiAgICB5X2luaWNpYWw6IGludCwKICAgIGZvbnRlX3RleHRvOiBJbWFnZUZvbnQuRnJlZVR5cGVGb250LAogICAgY29yOiBzdHIsCiAgICBlc3BhY2FtZW50bzogaW50ID0gMTIsCikgLT4gaW50OgogICAgeSA9IHlfaW5pY2lhbAoKICAgIGZvciBsaW5oYSBpbiBsaW5oYXM6CiAgICAgICAgY2FpeGEgPSBkZXNlbmhvLnRleHRiYm94KCgwLCAwKSwgbGluaGEsIGZvbnQ9Zm9udGVfdGV4dG8pCiAgICAgICAgbGFyZ3VyYSA9IGNhaXhhWzJdIC0gY2FpeGFbMF0KICAgICAgICBhbHR1cmEgPSBjYWl4YVszXSAtIGNhaXhhWzFdCiAgICAgICAgeCA9IChMQVJHVVJBIC0gbGFyZ3VyYSkgLy8gMgogICAgICAgIGRlc2VuaG8udGV4dCgoeCwgeSksIGxpbmhhLCBmb250PWZvbnRlX3RleHRvLCBmaWxsPWNvcikKICAgICAgICB5ICs9IGFsdHVyYSArIGVzcGFjYW1lbnRvCgogICAgcmV0dXJuIHkKCgpkZWYgY3JpYXJfY2FwYShkZXN0aW5vOiBQYXRoKSAtPiBOb25lOgogICAgaW1hZ2VtID0gSW1hZ2UubmV3KCJSR0IiLCAoTEFSR1VSQSwgQUxUVVJBKSwgQ09SX0ZVTkRPKQogICAgZGVzZW5obyA9IEltYWdlRHJhdy5EcmF3KGltYWdlbSkKCiAgICBkZXNlbmhvLnJvdW5kZWRfcmVjdGFuZ2xlKAogICAgICAgICg4MCwgNDAwLCAxMDAwLCAxNDUwKSwKICAgICAgICByYWRpdXM9NzAsCiAgICAgICAgZmlsbD1DT1JfTEFSQU5KQSwKICAgICkKCiAgICB5ID0gNTY1CiAgICB5ID0gZGVzZW5oYXJfdGV4dG9fY2VudHJhbGl6YWRvKAogICAgICAgIGRlc2VuaG8sCiAgICAgICAgWyJPRkVSVEFTIiwgIkRFIEhPSkUiXSwKICAgICAgICB5LAogICAgICAgIGZvbnRlKDgyLCBUcnVlKSwKICAgICAgICBDT1JfQlJBTkNPLAogICAgICAgIDMwLAogICAgKQoKICAgIGRlc2VuaG8ucm91bmRlZF9yZWN0YW5nbGUoCiAgICAgICAgKDE4MCwgeSArIDcwLCA5MDAsIHkgKyAyMDUpLAogICAgICAgIHJhZGl1cz0zNiwKICAgICAgICBmaWxsPUNPUl9CUkFOQ08sCiAgICApCgogICAgdGV4dG8gPSAiQUNIQURJTkhPUyBETyBUSUFHTyIKICAgIGYgPSBmb250ZSgzOCwgVHJ1ZSkKICAgIGNhaXhhID0gZGVzZW5oby50ZXh0YmJveCgoMCwgMCksIHRleHRvLCBmb250PWYpCiAgICBkZXNlbmhvLnRleHQoCiAgICAgICAgKChMQVJHVVJBIC0gKGNhaXhhWzJdIC0gY2FpeGFbMF0pKSAvLyAyLCB5ICsgMTEyKSwKICAgICAgICB0ZXh0bywKICAgICAgICBmb250PWYsCiAgICAgICAgZmlsbD1DT1JfTEFSQU5KQSwKICAgICkKCiAgICByb2RhcGUgPSAiQGFjaGFkaW5ob3Nkb3RpYWdvbSIKICAgIGZfcm9kYXBlID0gZm9udGUoMzEsIFRydWUpCiAgICBjYWl4YSA9IGRlc2VuaG8udGV4dGJib3goKDAsIDApLCByb2RhcGUsIGZvbnQ9Zl9yb2RhcGUpCiAgICBkZXNlbmhvLnRleHQoCiAgICAgICAgKChMQVJHVVJBIC0gKGNhaXhhWzJdIC0gY2FpeGFbMF0pKSAvLyAyLCAxNjQwKSwKICAgICAgICByb2RhcGUsCiAgICAgICAgZm9udD1mX3JvZGFwZSwKICAgICAgICBmaWxsPUNPUl9DSU5aQSwKICAgICkKCiAgICBpbWFnZW0uc2F2ZShkZXN0aW5vLCBxdWFsaXR5PTk1KQoKCmRlZiBjcmlhcl9zbGlkZV9wcm9kdXRvKAogICAgZGVzdGlubzogUGF0aCwKICAgIGluZGljZTogaW50LAogICAgcHJvZHV0bzogc3RyLAogICAgcHJlY286IHN0ciwKICAgIGxvamE6IHN0ciwKICAgIGltYWdlbV9wcm9kdXRvOiBQYXRoLAopIC0+IE5vbmU6CiAgICBpbWFnZW0gPSBJbWFnZS5uZXcoIlJHQiIsIChMQVJHVVJBLCBBTFRVUkEpLCBDT1JfRlVORE8pCiAgICBkZXNlbmhvID0gSW1hZ2VEcmF3LkRyYXcoaW1hZ2VtKQoKICAgIGRlc2VuaG8ucmVjdGFuZ2xlKCgwLCAwLCBMQVJHVVJBLCAyMTApLCBmaWxsPUNPUl9MQVJBTkpBKQoKICAgIHNlbG8gPSBmIntpbmRpY2V9LzMgIE9GRVJUQSBETyBESUEiCiAgICBmX3NlbG8gPSBmb250ZSg0MiwgVHJ1ZSkKICAgIGNhaXhhID0gZGVzZW5oby50ZXh0YmJveCgoMCwgMCksIHNlbG8sIGZvbnQ9Zl9zZWxvKQogICAgZGVzZW5oby50ZXh0KAogICAgICAgICgoTEFSR1VSQSAtIChjYWl4YVsyXSAtIGNhaXhhWzBdKSkgLy8gMiwgNzgpLAogICAgICAgIHNlbG8sCiAgICAgICAgZm9udD1mX3NlbG8sCiAgICAgICAgZmlsbD1DT1JfQlJBTkNPLAogICAgKQoKICAgIGZfcHJvZHV0byA9IGZvbnRlKDQ0LCBUcnVlKQogICAgbGluaGFzID0gcXVlYnJhcl90ZXh0bygKICAgICAgICBkZXNlbmhvLAogICAgICAgIHByb2R1dG8sCiAgICAgICAgZl9wcm9kdXRvLAogICAgICAgIDkwMCwKICAgICAgICAzLAogICAgKQogICAgZGVzZW5oYXJfdGV4dG9fY2VudHJhbGl6YWRvKAogICAgICAgIGRlc2VuaG8sCiAgICAgICAgbGluaGFzLAogICAgICAgIDI2MCwKICAgICAgICBmX3Byb2R1dG8sCiAgICAgICAgQ09SX1RFWFRPLAogICAgICAgIDEyLAogICAgKQoKICAgIHF1YWRybyA9IGVuY2FpeGFyX2ltYWdlbShpbWFnZW1fcHJvZHV0bywgODUwLCA4NTApCiAgICBpbWFnZW0ucGFzdGUocXVhZHJvLCAoMTE1LCA1MzApLCBxdWFkcm8pCgogICAgZGVzZW5oby5yb3VuZGVkX3JlY3RhbmdsZSgKICAgICAgICAoMTYwLCAxNDI1LCA5MjAsIDE1OTUpLAogICAgICAgIHJhZGl1cz00MCwKICAgICAgICBmaWxsPUNPUl9WRVJERSwKICAgICkKCiAgICB0ZXh0b19wcmVjbyA9IGYiUE9SIHtwcmVjb30iCiAgICBmX3ByZWNvID0gZm9udGUoNTgsIFRydWUpCiAgICBjYWl4YSA9IGRlc2VuaG8udGV4dGJib3goKDAsIDApLCB0ZXh0b19wcmVjbywgZm9udD1mX3ByZWNvKQogICAgZGVzZW5oby50ZXh0KAogICAgICAgICgoTEFSR1VSQSAtIChjYWl4YVsyXSAtIGNhaXhhWzBdKSkgLy8gMiwgMTQ3MiksCiAgICAgICAgdGV4dG9fcHJlY28sCiAgICAgICAgZm9udD1mX3ByZWNvLAogICAgICAgIGZpbGw9Q09SX0JSQU5DTywKICAgICkKCiAgICB0ZXh0b19sb2phID0gZiJMb2phOiB7bG9qYX0iCiAgICBmX2xvamEgPSBmb250ZSgzNCwgRmFsc2UpCiAgICBjYWl4YSA9IGRlc2VuaG8udGV4dGJib3goKDAsIDApLCB0ZXh0b19sb2phLCBmb250PWZfbG9qYSkKICAgIGRlc2VuaG8udGV4dCgKICAgICAgICAoKExBUkdVUkEgLSAoY2FpeGFbMl0gLSBjYWl4YVswXSkpIC8vIDIsIDE2NDApLAogICAgICAgIHRleHRvX2xvamEsCiAgICAgICAgZm9udD1mX2xvamEsCiAgICAgICAgZmlsbD1DT1JfQ0lOWkEsCiAgICApCgogICAgY2hhbWFkYSA9ICJWRUpBIE9TIExJTktTIE5BIEJJTyIKICAgIGZfY2hhbWFkYSA9IGZvbnRlKDM0LCBUcnVlKQogICAgY2FpeGEgPSBkZXNlbmhvLnRleHRiYm94KCgwLCAwKSwgY2hhbWFkYSwgZm9udD1mX2NoYW1hZGEpCiAgICBkZXNlbmhvLnRleHQoCiAgICAgICAgKChMQVJHVVJBIC0gKGNhaXhhWzJdIC0gY2FpeGFbMF0pKSAvLyAyLCAxNzcwKSwKICAgICAgICBjaGFtYWRhLAogICAgICAgIGZvbnQ9Zl9jaGFtYWRhLAogICAgICAgIGZpbGw9Q09SX0xBUkFOSkEsCiAgICApCgogICAgaW1hZ2VtLnNhdmUoZGVzdGlubywgcXVhbGl0eT05NSkKCgpkZWYgY3JpYXJfZmluYWwoZGVzdGlubzogUGF0aCkgLT4gTm9uZToKICAgIGltYWdlbSA9IEltYWdlLm5ldygiUkdCIiwgKExBUkdVUkEsIEFMVFVSQSksIENPUl9GVU5ETykKICAgIGRlc2VuaG8gPSBJbWFnZURyYXcuRHJhdyhpbWFnZW0pCgogICAgZGVzZW5oby5yb3VuZGVkX3JlY3RhbmdsZSgKICAgICAgICAoODAsIDMyMCwgMTAwMCwgMTU3MCksCiAgICAgICAgcmFkaXVzPTcwLAogICAgICAgIGZpbGw9Q09SX0xBUkFOSkEsCiAgICApCgogICAgeSA9IDUwMAogICAgeSA9IGRlc2VuaGFyX3RleHRvX2NlbnRyYWxpemFkbygKICAgICAgICBkZXNlbmhvLAogICAgICAgIFsiVkVKQSBPUyBMSU5LUyIsICJOQSBCSU8iXSwKICAgICAgICB5LAogICAgICAgIGZvbnRlKDcyLCBUcnVlKSwKICAgICAgICBDT1JfQlJBTkNPLAogICAgICAgIDI1LAogICAgKQoKICAgIHkgKz0gMTEwCgogICAgeSA9IGRlc2VuaGFyX3RleHRvX2NlbnRyYWxpemFkbygKICAgICAgICBkZXNlbmhvLAogICAgICAgIFsiRU5UUkUgTk8gQ0FOQUwgVklQIiwgIkRPIFRFTEVHUkFNIl0sCiAgICAgICAgeSwKICAgICAgICBmb250ZSg0OSwgVHJ1ZSksCiAgICAgICAgQ09SX0JSQU5DTywKICAgICAgICAyMCwKICAgICkKCiAgICBkZXNlbmhvLnJvdW5kZWRfcmVjdGFuZ2xlKAogICAgICAgICgxNzAsIHkgKyA5NSwgOTEwLCB5ICsgMjQ1KSwKICAgICAgICByYWRpdXM9NDIsCiAgICAgICAgZmlsbD1DT1JfQlJBTkNPLAogICAgKQoKICAgIHVzdWFyaW8gPSAiQGFjaGFkaW5ob3Nkb3RpYWdvbSIKICAgIGZfdXN1YXJpbyA9IGZvbnRlKDM4LCBUcnVlKQogICAgY2FpeGEgPSBkZXNlbmhvLnRleHRiYm94KCgwLCAwKSwgdXN1YXJpbywgZm9udD1mX3VzdWFyaW8pCiAgICBkZXNlbmhvLnRleHQoCiAgICAgICAgKChMQVJHVVJBIC0gKGNhaXhhWzJdIC0gY2FpeGFbMF0pKSAvLyAyLCB5ICsgMTQzKSwKICAgICAgICB1c3VhcmlvLAogICAgICAgIGZvbnQ9Zl91c3VhcmlvLAogICAgICAgIGZpbGw9Q09SX0xBUkFOSkEsCiAgICApCgogICAgaW1hZ2VtLnNhdmUoZGVzdGlubywgcXVhbGl0eT05NSkKCgpkZWYgZXhlY3V0YXIoY29tYW5kbzogbGlzdFtzdHJdKSAtPiBOb25lOgogICAgcHJpbnQoIkV4ZWN1dGFuZG86IiwgIiAiLmpvaW4oY29tYW5kbykpCiAgICBzdWJwcm9jZXNzLnJ1bihjb21hbmRvLCBjaGVjaz1UcnVlKQoKCmRlZiBjcmlhcl90cmVjaG8oaW1hZ2VtOiBQYXRoLCBkdXJhY2FvOiBmbG9hdCwgZGVzdGlubzogUGF0aCkgLT4gTm9uZToKICAgIGZhZGVfb3V0ID0gbWF4KDAuMCwgZHVyYWNhbyAtIDAuMzUpCgogICAgZmlsdHJvID0gKAogICAgICAgIGYic2NhbGU9e0xBUkdVUkF9OntBTFRVUkF9OmZvcmNlX29yaWdpbmFsX2FzcGVjdF9yYXRpbz1kZWNyZWFzZSwiCiAgICAgICAgZiJwYWQ9e0xBUkdVUkF9OntBTFRVUkF9Oihvdy1pdykvMjoob2gtaWgpLzI6Y29sb3I9e0NPUl9GVU5ET30sIgogICAgICAgICJmb3JtYXQ9eXV2NDIwcCwiCiAgICAgICAgImZhZGU9dD1pbjpzdD0wOmQ9MC4zMCwiCiAgICAgICAgZiJmYWRlPXQ9b3V0OnN0PXtmYWRlX291dDouMmZ9OmQ9MC4zMCIKICAgICkKCiAgICBleGVjdXRhcigKICAgICAgICBbCiAgICAgICAgICAgICJmZm1wZWciLAogICAgICAgICAgICAiLXkiLAogICAgICAgICAgICAiLWxvb3AiLAogICAgICAgICAgICAiMSIsCiAgICAgICAgICAgICItaSIsCiAgICAgICAgICAgIHN0cihpbWFnZW0pLAogICAgICAgICAgICAiLXQiLAogICAgICAgICAgICBzdHIoZHVyYWNhbyksCiAgICAgICAgICAgICItciIsCiAgICAgICAgICAgIHN0cihGUFMpLAogICAgICAgICAgICAiLXZmIiwKICAgICAgICAgICAgZmlsdHJvLAogICAgICAgICAgICAiLWFuIiwKICAgICAgICAgICAgIi1jOnYiLAogICAgICAgICAgICAibGlieDI2NCIsCiAgICAgICAgICAgICItcHJlc2V0IiwKICAgICAgICAgICAgIm1lZGl1bSIsCiAgICAgICAgICAgICItY3JmIiwKICAgICAgICAgICAgIjIwIiwKICAgICAgICAgICAgIi1waXhfZm10IiwKICAgICAgICAgICAgInl1djQyMHAiLAogICAgICAgICAgICAiLW1vdmZsYWdzIiwKICAgICAgICAgICAgIitmYXN0c3RhcnQiLAogICAgICAgICAgICBzdHIoZGVzdGlubyksCiAgICAgICAgXQogICAgKQoKCmRlZiBjb25jYXRlbmFyX3RyZWNob3ModHJlY2hvczogbGlzdFtQYXRoXSwgZGVzdGlubzogUGF0aCkgLT4gTm9uZToKICAgIGxpc3RhID0gUEFTVEFfVFJBQkFMSE8gLyAibGlzdGEudHh0IgogICAgbGlzdGEud3JpdGVfdGV4dCgKICAgICAgICAiIi5qb2luKGYiZmlsZSAne3RyZWNoby5yZXNvbHZlKCl9J1xuIiBmb3IgdHJlY2hvIGluIHRyZWNob3MpLAogICAgICAgIGVuY29kaW5nPSJ1dGYtOCIsCiAgICApCgogICAgdmlkZW9fc2VtX2F1ZGlvID0gUEFTVEFfVFJBQkFMSE8gLyAidmlkZW9fc2VtX2F1ZGlvLm1wNCIKCiAgICBleGVjdXRhcigKICAgICAgICBbCiAgICAgICAgICAgICJmZm1wZWciLAogICAgICAgICAgICAiLXkiLAogICAgICAgICAgICAiLWYiLAogICAgICAgICAgICAiY29uY2F0IiwKICAgICAgICAgICAgIi1zYWZlIiwKICAgICAgICAgICAgIjAiLAogICAgICAgICAgICAiLWkiLAogICAgICAgICAgICBzdHIobGlzdGEpLAogICAgICAgICAgICAiLWMiLAogICAgICAgICAgICAiY29weSIsCiAgICAgICAgICAgIHN0cih2aWRlb19zZW1fYXVkaW8pLAogICAgICAgIF0KICAgICkKCiAgICBleGVjdXRhcigKICAgICAgICBbCiAgICAgICAgICAgICJmZm1wZWciLAogICAgICAgICAgICAiLXkiLAogICAgICAgICAgICAiLWkiLAogICAgICAgICAgICBzdHIodmlkZW9fc2VtX2F1ZGlvKSwKICAgICAgICAgICAgIi1mIiwKICAgICAgICAgICAgImxhdmZpIiwKICAgICAgICAgICAgIi1pIiwKICAgICAgICAgICAgImFudWxsc3JjPWNoYW5uZWxfbGF5b3V0PXN0ZXJlbzpzYW1wbGVfcmF0ZT00NDEwMCIsCiAgICAgICAgICAgICItc2hvcnRlc3QiLAogICAgICAgICAgICAiLWM6diIsCiAgICAgICAgICAgICJjb3B5IiwKICAgICAgICAgICAgIi1jOmEiLAogICAgICAgICAgICAiYWFjIiwKICAgICAgICAgICAgIi1iOmEiLAogICAgICAgICAgICAiMTI4ayIsCiAgICAgICAgICAgICItbW92ZmxhZ3MiLAogICAgICAgICAgICAiK2Zhc3RzdGFydCIsCiAgICAgICAgICAgIHN0cihkZXN0aW5vKSwKICAgICAgICBdCiAgICApCgoKZGVmIG1haW4oKSAtPiBOb25lOgogICAgam9iX2lkID0gbGltcGFyX2pvYl9pZChlbnYoIkpPQl9JRCIpKQoKICAgIHByb2R1dG9zID0gWwogICAgICAgIHsKICAgICAgICAgICAgInByb2R1dG8iOiBlbnYoZiJQUk9EVVRPX3tpbmRpY2V9IiksCiAgICAgICAgICAgICJwcmVjbyI6IGVudihmIlBSRUNPX3tpbmRpY2V9IiksCiAgICAgICAgICAgICJsb2phIjogZW52KGYiTE9KQV97aW5kaWNlfSIpLAogICAgICAgICAgICAiaW1hZ2VtIjogZW52KGYiSU1BR0VNX3tpbmRpY2V9IiksCiAgICAgICAgfQogICAgICAgIGZvciBpbmRpY2UgaW4gcmFuZ2UoMSwgMykKICAgIF0KCiAgICBmb3IgaW5kaWNlLCBwcm9kdXRvIGluIGVudW1lcmF0ZShwcm9kdXRvcywgc3RhcnQ9MSk6CiAgICAgICAgZmFsdGFuZG8gPSBbCiAgICAgICAgICAgIGNoYXZlCiAgICAgICAgICAgIGZvciBjaGF2ZSBpbiAoInByb2R1dG8iLCAicHJlY28iLCAibG9qYSIsICJpbWFnZW0iKQogICAgICAgICAgICBpZiBub3QgcHJvZHV0b1tjaGF2ZV0KICAgICAgICBdCiAgICAgICAgaWYgZmFsdGFuZG86CiAgICAgICAgICAgIHJhaXNlIFZhbHVlRXJyb3IoCiAgICAgICAgICAgICAgICBmIlByb2R1dG8ge2luZGljZX0gc2VtOiB7JywgJy5qb2luKGZhbHRhbmRvKX0uIgogICAgICAgICAgICApCgogICAgUEFTVEFfVFJBQkFMSE8ubWtkaXIocGFyZW50cz1UcnVlLCBleGlzdF9vaz1UcnVlKQogICAgUEFTVEFfUFVCTElDQS5ta2RpcihwYXJlbnRzPVRydWUsIGV4aXN0X29rPVRydWUpCgogICAgY2FwYSA9IFBBU1RBX1RSQUJBTEhPIC8gImNhcGEucG5nIgogICAgZmluYWwgPSBQQVNUQV9UUkFCQUxITyAvICJmaW5hbC5wbmciCgogICAgY3JpYXJfY2FwYShjYXBhKQogICAgY3JpYXJfZmluYWwoZmluYWwpCgogICAgc2xpZGVzOiBsaXN0W1BhdGhdID0gW10KCiAgICBmb3IgaW5kaWNlLCBwcm9kdXRvIGluIGVudW1lcmF0ZShwcm9kdXRvcywgc3RhcnQ9MSk6CiAgICAgICAgaW1hZ2VtX2JhaXhhZGEgPSBiYWl4YXJfaW1hZ2VtKAogICAgICAgICAgICBwcm9kdXRvWyJpbWFnZW0iXSwKICAgICAgICAgICAgUEFTVEFfVFJBQkFMSE8gLyBmInByb2R1dG8te2luZGljZX0uYmluIiwKICAgICAgICApCgogICAgICAgIHNsaWRlID0gUEFTVEFfVFJBQkFMSE8gLyBmInNsaWRlLXtpbmRpY2V9LnBuZyIKCiAgICAgICAgY3JpYXJfc2xpZGVfcHJvZHV0bygKICAgICAgICAgICAgc2xpZGUsCiAgICAgICAgICAgIGluZGljZSwKICAgICAgICAgICAgcHJvZHV0b1sicHJvZHV0byJdLAogICAgICAgICAgICBwcm9kdXRvWyJwcmVjbyJdLAogICAgICAgICAgICBwcm9kdXRvWyJsb2phIl0sCiAgICAgICAgICAgIGltYWdlbV9iYWl4YWRhLAogICAgICAgICkKCiAgICAgICAgc2xpZGVzLmFwcGVuZChzbGlkZSkKCiAgICBpbWFnZW5zID0gW2NhcGEsICpzbGlkZXMsIGZpbmFsXQogICAgZHVyYWNvZXMgPSBbMi41LCA1LjUsIDUuNSwgMy4wXQoKICAgIHRyZWNob3M6IGxpc3RbUGF0aF0gPSBbXQoKICAgIGZvciBpbmRpY2UsIChpbWFnZW0sIGR1cmFjYW8pIGluIGVudW1lcmF0ZSgKICAgICAgICB6aXAoaW1hZ2VucywgZHVyYWNvZXMpLAogICAgICAgIHN0YXJ0PTEsCiAgICApOgogICAgICAgIHRyZWNobyA9IFBBU1RBX1RSQUJBTEhPIC8gZiJ0cmVjaG8te2luZGljZX0ubXA0IgogICAgICAgIGNyaWFyX3RyZWNobyhpbWFnZW0sIGR1cmFjYW8sIHRyZWNobykKICAgICAgICB0cmVjaG9zLmFwcGVuZCh0cmVjaG8pCgogICAgZGVzdGlubyA9IFBBU1RBX1BVQkxJQ0EgLyBmIntqb2JfaWR9Lm1wNCIKICAgIGNvbmNhdGVuYXJfdHJlY2hvcyh0cmVjaG9zLCBkZXN0aW5vKQoKICAgIHRhbWFuaG8gPSBkZXN0aW5vLnN0YXQoKS5zdF9zaXplCgogICAgaWYgdGFtYW5obyA8IDEwMF8wMDA6CiAgICAgICAgcmFpc2UgUnVudGltZUVycm9yKAogICAgICAgICAgICAiTyB2w61kZW8gZmluYWwgZmljb3UgcGVxdWVubyBkZW1haXMgZSBwYXJlY2UgaW52w6FsaWRvLiIKICAgICAgICApCgogICAgcHJpbnQoZiJSZWVsIGNyaWFkbzoge2Rlc3Rpbm99ICh7dGFtYW5ob30gYnl0ZXMpIikKCgppZiBfX25hbWVfXyA9PSAiX19tYWluX18iOgogICAgbWFpbigpCg==' | base64 --decode > scripts/gerar_reel.py
+          cat > scripts/gerar_reel.py <<'PY'
+          #!/usr/bin/env python3
+          from __future__ import annotations
+          
+          import math
+          import os
+          import random
+          import re
+          import struct
+          import subprocess
+          import textwrap
+          import wave
+          from pathlib import Path
+          from typing import Iterable
+          
+          import requests
+          from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
+          
+          LARGURA = 1080
+          ALTURA = 1920
+          FPS = 30
+          
+          COR_FUNDO = "#FFF9ED"
+          COR_AMARELO = "#FFD400"
+          COR_AMARELO_ESCURO = "#F2B900"
+          COR_PRETO = "#1A1A1A"
+          COR_BRANCO = "#FFFFFF"
+          COR_CINZA = "#5A5A5A"
+          COR_LARANJA = "#FF5A1F"
+          
+          PASTA_TRABALHO = Path("reel_tmp")
+          PASTA_PUBLICA = Path("public/reels")
+          PASTA_ASSETS = Path("assets")
+          
+          FONTE_REGULAR = Path(
+              "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+          )
+          FONTE_NEGRITO = Path(
+              "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+          )
+          
+          
+          def env(nome: str) -> str:
+              return os.environ.get(nome, "").strip()
+          
+          
+          def limpar_job_id(valor: str) -> str:
+              limpo = re.sub(r"[^A-Za-z0-9_-]", "-", valor.strip())
+              limpo = re.sub(r"-+", "-", limpo).strip("-")
+              if not limpo:
+                  raise ValueError("JOB_ID vazio ou inválido.")
+              return limpo[:100]
+          
+          
+          def fonte(tamanho: int, negrito: bool = False) -> ImageFont.FreeTypeFont:
+              caminho = FONTE_NEGRITO if negrito else FONTE_REGULAR
+              return ImageFont.truetype(str(caminho), tamanho)
+          
+          
+          def executar(comando: list[str]) -> None:
+              print("Executando:", " ".join(comando))
+              subprocess.run(comando, check=True)
+          
+          
+          def baixar_imagem(url: str, destino: Path) -> Path:
+              if not re.match(r"^https?://", url, flags=re.I):
+                  raise ValueError(f"URL de imagem inválida: {url}")
+          
+              resposta = requests.get(
+                  url,
+                  timeout=40,
+                  allow_redirects=True,
+                  headers={
+                      "User-Agent": (
+                          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                          "AppleWebKit/537.36 Chrome/150.0 Safari/537.36"
+                      ),
+                      "Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8",
+                  },
+              )
+              resposta.raise_for_status()
+          
+              if len(resposta.content) < 1000:
+                  raise ValueError("A imagem recebida está vazia ou muito pequena.")
+          
+              destino.write_bytes(resposta.content)
+          
+              with Image.open(destino) as imagem:
+                  rgb = imagem.convert("RGB")
+                  saida = destino.with_suffix(".jpg")
+                  rgb.save(saida, quality=95)
+          
+              destino.unlink(missing_ok=True)
+              return saida
+          
+          
+          def arredondar(imagem: Image.Image, raio: int) -> Image.Image:
+              mascara = Image.new("L", imagem.size, 0)
+              desenho = ImageDraw.Draw(mascara)
+              desenho.rounded_rectangle(
+                  (0, 0, imagem.width - 1, imagem.height - 1),
+                  radius=raio,
+                  fill=255,
+              )
+              saida = Image.new("RGBA", imagem.size, (0, 0, 0, 0))
+              saida.paste(imagem.convert("RGBA"), (0, 0), mascara)
+              return saida
+          
+          
+          def encaixar_imagem(caminho: Path, largura: int, altura: int) -> Image.Image:
+              with Image.open(caminho) as original:
+                  imagem = original.convert("RGB")
+          
+              imagem.thumbnail(
+                  (largura - 50, altura - 50),
+                  Image.Resampling.LANCZOS,
+              )
+          
+              quadro = Image.new("RGB", (largura, altura), COR_BRANCO)
+              x = (largura - imagem.width) // 2
+              y = (altura - imagem.height) // 2
+              quadro.paste(imagem, (x, y))
+              return arredondar(quadro, 52)
+          
+          
+          def adicionar_sombra(
+              base: Image.Image,
+              caixa: tuple[int, int, int, int],
+              raio: int = 45,
+              desfoque: int = 20,
+              deslocamento: tuple[int, int] = (0, 12),
+              opacidade: int = 65,
+          ) -> None:
+              sombra = Image.new("RGBA", base.size, (0, 0, 0, 0))
+              desenho = ImageDraw.Draw(sombra)
+              x1, y1, x2, y2 = caixa
+              dx, dy = deslocamento
+              desenho.rounded_rectangle(
+                  (x1 + dx, y1 + dy, x2 + dx, y2 + dy),
+                  radius=raio,
+                  fill=(0, 0, 0, opacidade),
+              )
+              sombra = sombra.filter(ImageFilter.GaussianBlur(desfoque))
+              base.alpha_composite(sombra)
+          
+          
+          def desenhar_caixa(
+              imagem: Image.Image,
+              caixa: tuple[int, int, int, int],
+              preenchimento: str,
+              raio: int = 40,
+              contorno: str | None = None,
+              espessura: int = 0,
+              sombra: bool = False,
+          ) -> None:
+              if sombra:
+                  adicionar_sombra(imagem, caixa, raio=raio)
+          
+              desenho = ImageDraw.Draw(imagem)
+              desenho.rounded_rectangle(
+                  caixa,
+                  radius=raio,
+                  fill=preenchimento,
+                  outline=contorno,
+                  width=espessura,
+              )
+          
+          
+          def quebrar_texto(
+              desenho: ImageDraw.ImageDraw,
+              texto: str,
+              fonte_texto: ImageFont.FreeTypeFont,
+              largura_maxima: int,
+              max_linhas: int,
+          ) -> list[str]:
+              palavras = texto.split()
+              linhas: list[str] = []
+              atual = ""
+          
+              for palavra in palavras:
+                  teste = palavra if not atual else f"{atual} {palavra}"
+                  caixa = desenho.textbbox((0, 0), teste, font=fonte_texto)
+                  largura = caixa[2] - caixa[0]
+          
+                  if largura <= largura_maxima:
+                      atual = teste
+                  else:
+                      if atual:
+                          linhas.append(atual)
+                      atual = palavra
+          
+                  if len(linhas) >= max_linhas:
+                      break
+          
+              if atual and len(linhas) < max_linhas:
+                  linhas.append(atual)
+          
+              texto_usado = " ".join(linhas)
+              if len(texto_usado) < len(texto.strip()) and linhas:
+                  ultima = linhas[-1].rstrip(".,;:!?")
+                  while ultima:
+                      teste = ultima + "..."
+                      caixa = desenho.textbbox((0, 0), teste, font=fonte_texto)
+                      if caixa[2] - caixa[0] <= largura_maxima:
+                          linhas[-1] = teste
+                          break
+                      ultima = ultima[:-1].rstrip()
+          
+              return linhas
+          
+          
+          def desenhar_texto_centralizado(
+              desenho: ImageDraw.ImageDraw,
+              linhas: Iterable[str],
+              y_inicial: int,
+              fonte_texto: ImageFont.FreeTypeFont,
+              cor: str,
+              espacamento: int = 12,
+          ) -> int:
+              y = y_inicial
+          
+              for linha in linhas:
+                  caixa = desenho.textbbox((0, 0), linha, font=fonte_texto)
+                  largura = caixa[2] - caixa[0]
+                  altura = caixa[3] - caixa[1]
+                  x = (LARGURA - largura) // 2
+                  desenho.text((x, y), linha, font=fonte_texto, fill=cor)
+                  y += altura + espacamento
+          
+              return y
+          
+          
+          def desenhar_texto_em_caixa(
+              desenho: ImageDraw.ImageDraw,
+              linhas: Iterable[str],
+              caixa_destino: tuple[int, int, int, int],
+              fonte_texto: ImageFont.FreeTypeFont,
+              cor: str,
+              espacamento: int = 6,
+          ) -> None:
+              linhas_lista = list(linhas)
+              alturas = []
+              larguras = []
+          
+              for linha in linhas_lista:
+                  caixa = desenho.textbbox((0, 0), linha, font=fonte_texto)
+                  larguras.append(caixa[2] - caixa[0])
+                  alturas.append(caixa[3] - caixa[1])
+          
+              total_altura = sum(alturas) + espacamento * max(0, len(linhas_lista) - 1)
+              x1, y1, x2, y2 = caixa_destino
+              y = y1 + (y2 - y1 - total_altura) // 2
+          
+              for linha, largura, altura in zip(linhas_lista, larguras, alturas):
+                  x = x1 + (x2 - x1 - largura) // 2
+                  desenho.text((x, y), linha, font=fonte_texto, fill=cor)
+                  y += altura + espacamento
+          
+          
+          def colar_logo(
+              imagem: Image.Image,
+              x: int,
+              y: int,
+              tamanho: int,
+              com_fundo: bool = True,
+          ) -> None:
+              caminho = PASTA_ASSETS / "logo.png"
+              with Image.open(caminho) as original:
+                  logo = original.convert("RGBA")
+          
+              logo.thumbnail((tamanho, tamanho), Image.Resampling.LANCZOS)
+          
+              if com_fundo:
+                  fundo = Image.new("RGBA", (tamanho + 18, tamanho + 18), (0, 0, 0, 0))
+                  d = ImageDraw.Draw(fundo)
+                  d.ellipse(
+                      (0, 0, tamanho + 17, tamanho + 17),
+                      fill=COR_BRANCO,
+                      outline=COR_AMARELO_ESCURO,
+                      width=5,
+                  )
+                  fundo.alpha_composite(
+                      logo,
+                      (
+                          (fundo.width - logo.width) // 2,
+                          (fundo.height - logo.height) // 2,
+                      ),
+                  )
+                  imagem.alpha_composite(fundo, (x, y))
+              else:
+                  imagem.alpha_composite(logo, (x, y))
+          
+          
+          def criar_capa(destino: Path) -> None:
+              imagem = Image.new("RGBA", (LARGURA, ALTURA), COR_FUNDO)
+              desenho = ImageDraw.Draw(imagem)
+          
+              desenho.rectangle((0, 0, LARGURA, 520), fill=COR_AMARELO)
+              desenho.rectangle((0, 520, LARGURA, 555), fill=COR_PRETO)
+          
+              colar_logo(imagem, 360, 75, 340)
+          
+              desenhar_caixa(
+                  imagem,
+                  (90, 650, 990, 1210),
+                  COR_PRETO,
+                  raio=70,
+                  sombra=True,
+              )
+          
+              desenhar_texto_centralizado(
+                  desenho,
+                  ["OFERTAS", "DO DIA"],
+                  755,
+                  fonte(105, True),
+                  COR_BRANCO,
+                  18,
+              )
+          
+              desenhar_caixa(
+                  imagem,
+                  (175, 1265, 905, 1395),
+                  COR_AMARELO,
+                  raio=36,
+              )
+          
+              texto = "2 ACHADINHOS IMPERDÍVEIS"
+              f = fonte(39, True)
+              caixa = desenho.textbbox((0, 0), texto, font=f)
+              desenho.text(
+                  ((LARGURA - (caixa[2] - caixa[0])) // 2, 1307),
+                  texto,
+                  font=f,
+                  fill=COR_PRETO,
+              )
+          
+              desenhar_caixa(
+                  imagem,
+                  (170, 1505, 910, 1665),
+                  COR_BRANCO,
+                  raio=42,
+                  contorno=COR_AMARELO_ESCURO,
+                  espessura=6,
+                  sombra=True,
+              )
+          
+              chamada = "CONFIRA NO LINK DA BIO"
+              f_chamada = fonte(42, True)
+              caixa = desenho.textbbox((0, 0), chamada, font=f_chamada)
+              desenho.text(
+                  ((LARGURA - (caixa[2] - caixa[0])) // 2, 1553),
+                  chamada,
+                  font=f_chamada,
+                  fill=COR_PRETO,
+              )
+          
+              usuario = "@achadinhosdotiagom"
+              f_usuario = fonte(31, True)
+              caixa = desenho.textbbox((0, 0), usuario, font=f_usuario)
+              desenho.text(
+                  ((LARGURA - (caixa[2] - caixa[0])) // 2, 1780),
+                  usuario,
+                  font=f_usuario,
+                  fill=COR_CINZA,
+              )
+          
+              imagem.convert("RGB").save(destino, quality=96)
+          
+          
+          def criar_slide_produto(
+              destino: Path,
+              indice: int,
+              produto: str,
+              preco: str,
+              loja: str,
+              imagem_produto: Path,
+          ) -> None:
+              imagem = Image.new("RGBA", (LARGURA, ALTURA), COR_FUNDO)
+              desenho = ImageDraw.Draw(imagem)
+          
+              desenho.rectangle((0, 0, LARGURA, 225), fill=COR_AMARELO)
+              desenho.rectangle((0, 225, LARGURA, 242), fill=COR_PRETO)
+          
+              colar_logo(imagem, 28, 22, 165)
+          
+              selo_topo = f"{indice}/2  OFERTA DO DIA"
+              f_topo = fonte(43, True)
+              caixa = desenho.textbbox((0, 0), selo_topo, font=f_topo)
+              desenho.text(
+                  (LARGURA - (caixa[2] - caixa[0]) - 55, 76),
+                  selo_topo,
+                  font=f_topo,
+                  fill=COR_PRETO,
+              )
+          
+              titulo_caixa = (58, 285, 1022, 480)
+              desenhar_caixa(
+                  imagem,
+                  titulo_caixa,
+                  COR_BRANCO,
+                  raio=42,
+                  contorno=COR_AMARELO_ESCURO,
+                  espessura=4,
+                  sombra=True,
+              )
+          
+              tamanho_titulo = 48
+              if len(produto) > 58:
+                  tamanho_titulo = 42
+              if len(produto) > 82:
+                  tamanho_titulo = 36
+          
+              f_produto = fonte(tamanho_titulo, True)
+              linhas = quebrar_texto(
+                  desenho,
+                  produto,
+                  f_produto,
+                  850,
+                  3,
+              )
+              alturas = [
+                  desenho.textbbox((0, 0), linha, font=f_produto)[3]
+                  - desenho.textbbox((0, 0), linha, font=f_produto)[1]
+                  for linha in linhas
+              ]
+              total = sum(alturas) + 10 * max(0, len(linhas) - 1)
+              y_titulo = titulo_caixa[1] + (titulo_caixa[3] - titulo_caixa[1] - total) // 2
+          
+              desenhar_texto_centralizado(
+                  desenho,
+                  linhas,
+                  y_titulo,
+                  f_produto,
+                  COR_PRETO,
+                  10,
+              )
+          
+              moldura = (65, 535, 1015, 1295)
+              desenhar_caixa(
+                  imagem,
+                  moldura,
+                  COR_AMARELO,
+                  raio=58,
+                  sombra=True,
+              )
+          
+              quadro = encaixar_imagem(imagem_produto, 900, 710)
+              imagem.alpha_composite(quadro, (90, 560))
+          
+              # Selo maior e com fonte pequena para não cortar.
+              desenho.ellipse(
+                  (810, 495, 1018, 703),
+                  fill=COR_AMARELO,
+                  outline=COR_PRETO,
+                  width=5,
+              )
+              f_selo = fonte(28, True)
+              desenhar_texto_em_caixa(
+                  desenho,
+                  ["OFERTA", "LIMITADA"],
+                  (810, 495, 1018, 703),
+                  f_selo,
+                  COR_PRETO,
+                  6,
+              )
+          
+              desenhar_caixa(
+                  imagem,
+                  (65, 1340, 1015, 1515),
+                  COR_AMARELO,
+                  raio=44,
+                  sombra=True,
+              )
+              texto_preco = f"POR {preco}"
+              f_preco = fonte(66, True)
+              caixa = desenho.textbbox((0, 0), texto_preco, font=f_preco)
+              desenho.text(
+                  ((LARGURA - (caixa[2] - caixa[0])) // 2, 1383),
+                  texto_preco,
+                  font=f_preco,
+                  fill=COR_PRETO,
+              )
+          
+              desenhar_caixa(
+                  imagem,
+                  (65, 1560, 475, 1688),
+                  COR_BRANCO,
+                  raio=34,
+                  contorno=COR_AMARELO_ESCURO,
+                  espessura=4,
+              )
+              texto_loja = f"LOJA: {loja}"
+              f_loja = fonte(31, True)
+              caixa = desenho.textbbox((0, 0), texto_loja, font=f_loja)
+              desenho.text(
+                  (270 - (caixa[2] - caixa[0]) // 2, 1601),
+                  texto_loja,
+                  font=f_loja,
+                  fill=COR_PRETO,
+              )
+          
+              desenhar_caixa(
+                  imagem,
+                  (500, 1560, 1015, 1688),
+                  COR_AMARELO,
+                  raio=34,
+              )
+              cta = "LINK NA BIO"
+              f_cta = fonte(42, True)
+              caixa = desenho.textbbox((0, 0), cta, font=f_cta)
+              desenho.text(
+                  (758 - (caixa[2] - caixa[0]) // 2, 1592),
+                  cta,
+                  font=f_cta,
+                  fill=COR_PRETO,
+              )
+          
+              rodape = "OFERTAS REAIS  •  PREÇOS BAIXOS  •  TODOS OS DIAS"
+              f_rodape = fonte(25, True)
+              caixa = desenho.textbbox((0, 0), rodape, font=f_rodape)
+              desenho.text(
+                  ((LARGURA - (caixa[2] - caixa[0])) // 2, 1790),
+                  rodape,
+                  font=f_rodape,
+                  fill=COR_CINZA,
+              )
+          
+              imagem.convert("RGB").save(destino, quality=96)
+          
+          
+          def criar_final(destino: Path) -> None:
+              imagem = Image.new("RGBA", (LARGURA, ALTURA), COR_FUNDO)
+              desenho = ImageDraw.Draw(imagem)
+          
+              desenho.rectangle((0, 0, LARGURA, 430), fill=COR_AMARELO)
+              colar_logo(imagem, 360, 55, 340)
+          
+              desenhar_caixa(
+                  imagem,
+                  (80, 535, 1000, 1160),
+                  COR_PRETO,
+                  raio=70,
+                  sombra=True,
+              )
+          
+              desenhar_texto_centralizado(
+                  desenho,
+                  ["QUER MAIS", "ACHADINHOS?"],
+                  660,
+                  fonte(82, True),
+                  COR_BRANCO,
+                  18,
+              )
+          
+              desenhar_caixa(
+                  imagem,
+                  (145, 1240, 935, 1415),
+                  COR_AMARELO,
+                  raio=44,
+                  sombra=True,
+              )
+          
+              texto = "ACESSE O LINK DA BIO"
+              f = fonte(47, True)
+              caixa = desenho.textbbox((0, 0), texto, font=f)
+              desenho.text(
+                  ((LARGURA - (caixa[2] - caixa[0])) // 2, 1291),
+                  texto,
+                  font=f,
+                  fill=COR_PRETO,
+              )
+          
+              desenhar_caixa(
+                  imagem,
+                  (145, 1470, 935, 1635),
+                  COR_BRANCO,
+                  raio=44,
+                  contorno=COR_AMARELO_ESCURO,
+                  espessura=5,
+              )
+          
+              telegram = "ENTRE NO CANAL VIP DO TELEGRAM"
+              f_telegram = fonte(34, True)
+              caixa = desenho.textbbox((0, 0), telegram, font=f_telegram)
+              desenho.text(
+                  ((LARGURA - (caixa[2] - caixa[0])) // 2, 1523),
+                  telegram,
+                  font=f_telegram,
+                  fill=COR_PRETO,
+              )
+          
+              usuario = "@achadinhosdotiagom"
+              f_usuario = fonte(33, True)
+              caixa = desenho.textbbox((0, 0), usuario, font=f_usuario)
+              desenho.text(
+                  ((LARGURA - (caixa[2] - caixa[0])) // 2, 1770),
+                  usuario,
+                  font=f_usuario,
+                  fill=COR_CINZA,
+              )
+          
+              imagem.convert("RGB").save(destino, quality=96)
+          
+          
+          def gerar_musica(destino: Path, duracao: float) -> None:
+              taxa = 44100
+              total = int(taxa * duracao)
+              random.seed(20260724)
+          
+              # Progressão original e simples: C - Am - F - G.
+              acordes = [
+                  (261.63, 329.63, 392.00),
+                  (220.00, 261.63, 329.63),
+                  (174.61, 220.00, 261.63),
+                  (196.00, 246.94, 293.66),
+              ]
+          
+              with wave.open(str(destino), "wb") as wav:
+                  wav.setnchannels(2)
+                  wav.setsampwidth(2)
+                  wav.setframerate(taxa)
+          
+                  quadros = bytearray()
+          
+                  for i in range(total):
+                      t = i / taxa
+                      acorde = acordes[int(t // 2) % len(acordes)]
+          
+                      # Base harmônica suave.
+                      base = sum(
+                          math.sin(2 * math.pi * freq * t)
+                          for freq in acorde
+                      ) / 3.0
+          
+                      # Arpejo curto a cada 1/4 de segundo.
+                      passo = int(t / 0.25)
+                      inicio_passo = passo * 0.25
+                      local = t - inicio_passo
+                      freq_arpejo = acorde[passo % 3] * 2
+                      envelope = math.exp(-8.0 * local)
+                      arpejo = math.sin(
+                          2 * math.pi * freq_arpejo * local
+                      ) * envelope
+          
+                      # Batida leve a 120 BPM.
+                      batida_local = t % 0.5
+                      kick = 0.0
+                      if batida_local < 0.12:
+                          kick = (
+                              math.sin(
+                                  2 * math.pi *
+                                  (75 - 30 * batida_local / 0.12) *
+                                  batida_local
+                              ) *
+                              math.exp(-22 * batida_local)
+                          )
+          
+                      # Estalo bem leve nos contratempos.
+                      clap = 0.0
+                      deslocado = (t - 0.25) % 0.5
+                      if deslocado < 0.045:
+                          clap = (
+                              random.uniform(-1, 1) *
+                              math.exp(-55 * deslocado)
+                          )
+          
+                      amostra = (
+                          0.18 * base +
+                          0.26 * arpejo +
+                          0.35 * kick +
+                          0.07 * clap
+                      )
+          
+                      # Fade de entrada e saída.
+                      ganho = min(1.0, t / 0.7)
+                      ganho *= min(1.0, max(0.0, (duracao - t) / 0.9))
+                      amostra *= ganho * 0.62
+          
+                      inteiro = int(
+                          max(-1.0, min(1.0, amostra)) * 32767
+                      )
+                      quadros.extend(struct.pack("<hh", inteiro, inteiro))
+          
+                  wav.writeframes(quadros)
+          
+          
+          def criar_trecho(
+              imagem: Path,
+              duracao: float,
+              destino: Path,
+          ) -> None:
+              fade_out = max(0.0, duracao - 0.30)
+          
+              filtro = (
+                  f"scale={LARGURA}:{ALTURA}:"
+                  "force_original_aspect_ratio=decrease,"
+                  f"pad={LARGURA}:{ALTURA}:"
+                  "(ow-iw)/2:(oh-ih)/2:"
+                  f"color={COR_FUNDO},"
+                  "format=yuv420p,"
+                  "fade=t=in:st=0:d=0.28:"
+                  f"color={COR_FUNDO},"
+                  "fade=t=out:"
+                  f"st={fade_out:.2f}:d=0.28:"
+                  f"color={COR_FUNDO}"
+              )
+          
+              executar(
+                  [
+                      "ffmpeg",
+                      "-y",
+                      "-loop",
+                      "1",
+                      "-i",
+                      str(imagem),
+                      "-t",
+                      str(duracao),
+                      "-r",
+                      str(FPS),
+                      "-vf",
+                      filtro,
+                      "-an",
+                      "-c:v",
+                      "libx264",
+                      "-preset",
+                      "medium",
+                      "-crf",
+                      "19",
+                      "-pix_fmt",
+                      "yuv420p",
+                      "-movflags",
+                      "+faststart",
+                      str(destino),
+                  ]
+              )
+          
+          
+          def concatenar_trechos(
+              trechos: list[Path],
+              musica: Path,
+              destino: Path,
+              duracao_total: float,
+          ) -> None:
+              lista = PASTA_TRABALHO / "lista.txt"
+              lista.write_text(
+                  "".join(
+                      f"file '{trecho.resolve()}'\n"
+                      for trecho in trechos
+                  ),
+                  encoding="utf-8",
+              )
+          
+              video_sem_audio = (
+                  PASTA_TRABALHO /
+                  "video_sem_audio.mp4"
+              )
+          
+              executar(
+                  [
+                      "ffmpeg",
+                      "-y",
+                      "-f",
+                      "concat",
+                      "-safe",
+                      "0",
+                      "-i",
+                      str(lista),
+                      "-c",
+                      "copy",
+                      str(video_sem_audio),
+                  ]
+              )
+          
+              inicio_fade_saida = max(0.0, duracao_total - 1.0)
+          
+              executar(
+                  [
+                      "ffmpeg",
+                      "-y",
+                      "-i",
+                      str(video_sem_audio),
+                      "-i",
+                      str(musica),
+                      "-filter_complex",
+                      (
+                          "[1:a]"
+                          "volume=0.30,"
+                          "afade=t=in:st=0:d=0.60,"
+                          f"afade=t=out:st={inicio_fade_saida:.2f}:d=0.90"
+                          "[musica]"
+                      ),
+                      "-map",
+                      "0:v:0",
+                      "-map",
+                      "[musica]",
+                      "-shortest",
+                      "-c:v",
+                      "copy",
+                      "-c:a",
+                      "aac",
+                      "-b:a",
+                      "160k",
+                      "-ar",
+                      "44100",
+                      "-movflags",
+                      "+faststart",
+                      str(destino),
+                  ]
+              )
+          
+          
+          def main() -> None:
+              job_id = limpar_job_id(env("JOB_ID"))
+          
+              produtos = [
+                  {
+                      "produto": env(f"PRODUTO_{indice}"),
+                      "preco": env(f"PRECO_{indice}"),
+                      "loja": env(f"LOJA_{indice}"),
+                      "imagem": env(f"IMAGEM_{indice}"),
+                  }
+                  for indice in range(1, 3)
+              ]
+          
+              for indice, produto in enumerate(produtos, start=1):
+                  faltando = [
+                      chave
+                      for chave in ("produto", "preco", "loja", "imagem")
+                      if not produto[chave]
+                  ]
+                  if faltando:
+                      raise ValueError(
+                          f"Produto {indice} sem: {', '.join(faltando)}."
+                      )
+          
+              PASTA_TRABALHO.mkdir(parents=True, exist_ok=True)
+              PASTA_PUBLICA.mkdir(parents=True, exist_ok=True)
+              PASTA_ASSETS.mkdir(parents=True, exist_ok=True)
+          
+              capa = PASTA_TRABALHO / "capa.png"
+              final = PASTA_TRABALHO / "final.png"
+          
+              criar_capa(capa)
+              criar_final(final)
+          
+              slides: list[Path] = []
+          
+              for indice, produto in enumerate(produtos, start=1):
+                  imagem_baixada = baixar_imagem(
+                      produto["imagem"],
+                      PASTA_TRABALHO / f"produto-{indice}.bin",
+                  )
+          
+                  slide = PASTA_TRABALHO / f"slide-{indice}.png"
+          
+                  criar_slide_produto(
+                      slide,
+                      indice,
+                      produto["produto"],
+                      produto["preco"],
+                      produto["loja"],
+                      imagem_baixada,
+                  )
+          
+                  slides.append(slide)
+          
+              imagens = [capa, *slides, final]
+              duracoes = [2.2, 5.0, 5.0, 3.0]
+          
+              trechos: list[Path] = []
+          
+              for indice, (imagem, duracao) in enumerate(
+                  zip(imagens, duracoes),
+                  start=1,
+              ):
+                  trecho = PASTA_TRABALHO / f"trecho-{indice}.mp4"
+                  criar_trecho(imagem, duracao, trecho)
+                  trechos.append(trecho)
+          
+              duracao_total = sum(duracoes)
+              musica = PASTA_TRABALHO / "musica-original.wav"
+              gerar_musica(musica, duracao_total)
+          
+              destino = PASTA_PUBLICA / f"{job_id}.mp4"
+              concatenar_trechos(
+                  trechos,
+                  musica,
+                  destino,
+                  duracao_total,
+              )
+          
+              tamanho = destino.stat().st_size
+              if tamanho < 100_000:
+                  raise RuntimeError(
+                      "O vídeo final ficou pequeno demais e parece inválido."
+                  )
+          
+              print(
+                  f"Reel criado: {destino} "
+                  f"({tamanho} bytes, música original incluída)"
+              )
+          
+          
+          if __name__ == "__main__":
+              main()
+          PY
+          python -m py_compile scripts/gerar_reel.py
 
-      - name: Gerar vídeo vertical
+      - name: Gerar vídeo vertical com música
         env:
           JOB_ID: ${{ inputs.job_id }}
 
@@ -99,6 +1011,7 @@ jobs:
           mkdir -p public/reels
           test -f "public/reels/${{ inputs.job_id }}.mp4"
           printf '%s' "${{ inputs.job_id }}" > public/ultimo-job.txt
+
           cat > public/index.html <<'HTML'
           <!doctype html>
           <html lang="pt-BR">
